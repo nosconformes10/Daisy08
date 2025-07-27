@@ -1,0 +1,114 @@
+import { useState, useEffect } from "react"; import { motion } from "framer-motion"; import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; import { Input } from "@/components/ui/input"; import { Button } from "@/components/ui/button"; import { PhoneCall, Mic, Camera, Users, User } from "lucide-react";
+
+export default function DaisyApp() { const [showSplash, setShowSplash] = useState(true); const [phone, setPhone] = useState(""); const [showCodeInput, setShowCodeInput] = useState(false); const [code, setCode] = useState(""); const [authenticated, setAuthenticated] = useState(false);
+
+useEffect(() => { const timer = setTimeout(() => setShowSplash(false), 10000); return () => clearTimeout(timer); }, []);
+
+const handlePhoneSubmit = () => { if (phone.startsWith("+244") && phone.length >= 13) { setShowCodeInput(true); alert("Código SMS enviado para " + phone); } else { alert("Digite um número angolano válido com o prefixo +244"); } };
+
+const handleCodeSubmit = () => { setAuthenticated(true); alert("Código verificado: " + code); };
+
+if (showSplash) { return ( <div className="flex items-center justify-center h-screen bg-black"> <motion.img src="/logo_daisy.png" alt="Daisy 08 Logo" initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 2 }} className="w-52 h-52 rounded-full shadow-xl" /> </div> ); }
+
+if (!authenticated) { return ( <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 text-white p-4"> <h1 className="text-3xl font-bold text-yellow-400 mb-6">Daisy 08</h1>
+
+{!showCodeInput ? (
+      <>
+        <label className="mb-2">Número de Telefone (apenas Angola)</label>
+        <Input
+          type="tel"
+          placeholder="+244 9XX XXX XXX"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="mb-4 text-black"
+        />
+        <Button onClick={handlePhoneSubmit} className="bg-yellow-500 text-black">
+          Continuar
+        </Button>
+      </>
+    ) : (
+      <>
+        <label className="mb-2">Digite o código SMS</label>
+        <Input
+          type="text"
+          placeholder="123456"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          className="mb-4 text-black"
+        />
+        <Button onClick={handleCodeSubmit} className="bg-yellow-500 text-black">
+          Verificar
+        </Button>
+      </>
+    )}
+  </div>
+);
+
+}
+
+return ( <div className="bg-gray-950 text-white min-h-screen p-4"> <h2 className="text-2xl font-bold text-yellow-400 mb-4">Bem-vindo(a) ao Daisy 08</h2>
+
+<Tabs defaultValue="chats" className="w-full">
+    <TabsList className="flex justify-between bg-gray-800 rounded-xl p-2 mb-4">
+      <TabsTrigger value="chats" className="flex-1">Mensagens</TabsTrigger>
+      <TabsTrigger value="status" className="flex-1">Status</TabsTrigger>
+      <TabsTrigger value="chamadas" className="flex-1">Chamadas</TabsTrigger>
+      <TabsTrigger value="grupos" className="flex-1">Grupos</TabsTrigger>
+      <TabsTrigger value="perfil" className="flex-1">Perfil</TabsTrigger>
+    </TabsList>
+
+    <TabsContent value="chats">
+      <div className="space-y-4">
+        <div className="bg-gray-800 p-4 rounded-xl flex justify-between items-center">
+          <div>
+            <p className="font-semibold">Joana</p>
+            <p className="text-gray-400 text-sm">Olá! Como estás?</p>
+          </div>
+          <Mic className="text-yellow-400" />
+        </div>
+      </div>
+    </TabsContent>
+
+    <TabsContent value="status">
+      <div className="bg-gray-800 p-4 rounded-xl">
+        <p className="text-yellow-300 font-bold">Status de amigos:</p>
+        <ul className="mt-2">
+          <li>Joana postou uma foto</li>
+          <li>Carlos escreveu uma mensagem</li>
+        </ul>
+      </div>
+    </TabsContent>
+
+    <TabsContent value="chamadas">
+      <div className="bg-gray-800 p-4 rounded-xl">
+        <p className="text-yellow-300 font-bold">Chamadas recentes:</p>
+        <ul className="mt-2">
+          <li>Joana (hoje, 10h) <PhoneCall className="inline ml-2 text-yellow-400" /></li>
+        </ul>
+      </div>
+    </TabsContent>
+
+    <TabsContent value="grupos">
+      <div className="bg-gray-800 p-4 rounded-xl">
+        <p className="text-yellow-300 font-bold">Grupos:</p>
+        <ul className="mt-2">
+          <li>Família Silva <Users className="inline ml-2" /></li>
+          <li>Nos Conformes <Users className="inline ml-2" /></li>
+        </ul>
+      </div>
+    </TabsContent>
+
+    <TabsContent value="perfil">
+      <div className="bg-gray-800 p-4 rounded-xl">
+        <p className="text-yellow-300 font-bold">Seu Perfil:</p>
+        <p className="mt-2">Nome: Mara Andrade</p>
+        <p>Status: 💛 Sempre em frente!</p>
+        <Camera className="mt-4 text-yellow-400" />
+      </div>
+    </TabsContent>
+  </Tabs>
+</div>
+
+); }
+
+                                                                                                  
