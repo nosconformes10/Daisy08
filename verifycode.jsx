@@ -26,4 +26,3 @@ export default function VerifyCode({ confirmationResult, setVerified }) {
     </div>
   );
 }
-
