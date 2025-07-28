@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'SUA_API_KEY',
-  authDomain: 'SEU_DOMINIO.firebaseapp.com',
-  projectId: 'SEU_PROJECT_ID',
-  storageBucket: 'SEU_BUCKET.appspot.com',
-  messagingSenderId: 'SEU_SENDER_ID',
-  appId: 'SEU_APP_ID'
+  apiKey: "AIzaSyA6W-AY8YWYwjpNtqSLOUWFyupNjMwRYR4",
+  authDomain: "daisy-08.firebaseapp.com",
+  projectId: "daisy-08",
+  storageBucket: "daisy-08.firebasestorage.app",
+  messagingSenderId: "753362157561",
+  appId: "1:753362157561:web:8605ad7ec7181e81378728"
 };
 
 const app = initializeApp(firebaseConfig);
