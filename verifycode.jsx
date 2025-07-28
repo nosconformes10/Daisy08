@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
-export default function VerifyCode({ confirmationResult }) {
+export default function VerifyCode({ confirmationResult, setVerified }) {
   const [code, setCode] = useState('');
 
   const verifyCode = async () => {
     try {
       await confirmationResult.confirm(code);
       alert('Verificação concluída!');
+      setVerified(true);
     } catch (err) {
       alert('Código incorreto');
     }
@@ -25,3 +26,4 @@ export default function VerifyCode({ confirmationResult }) {
     </div>
   );
 }
+
